@@ -1,5 +1,6 @@
 from random import choice
 from time import time
+from decimal import Decimal as long
 
 
 
@@ -139,13 +140,61 @@ class ArchesCrypto():
 
         self.decoded = str().join(self.decoded)        
         return self.decoded
+
+    def hash_it(self, to_hash = None):
+
+        number_cluster = []
+        sliced_cluster = []
+
+        to_hash = self.encoded if to_hash is None else 0        
+
+        first_number_cluster = list(str().join([str(ord(letter)) for letter in to_hash]))
+        number_cluster = first_number_cluster
+        pintched_cluster = []
+
+        while len(number_cluster) > 460:
+            pintched_cluster = [number_cluster[i] for i in range(0, len(number_cluster), 2)]
+            number_cluster = pintched_cluster
+
+        while len(number_cluster) != 459:
+            for i in range(0, 459 - len(number_cluster), 7):
+                number_cluster.append(first_number_cluster[i])
+
+        self.hash = int(str().join(number_cluster))
+        self.hash = self.to_alphadecimal(self.hash)
+
+        return self.hash
+
+    def to_alphadecimal(self, to_convert):
+
+        alphadecimal = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+        base = len(alphadecimal) ## 62
+        result = ''
+
+        # because need to treat zero before the loop
+        resto = to_convert % base
+        result = alphadecimal[resto] + result
+        to_convert = to_convert // base
+
+        while to_convert > 0:
+            resto = to_convert % base
+            result = alphadecimal[resto] + result
+            to_convert = to_convert // base
+
+        return result
+
+       
+
 #    
 #
 #
 if __name__== "__main__":
-    v = ArchesCrypto('Olá mundo')
-    print(v)
-    print(v.decode())
+    tempo = time()
+    v = ArchesCrypto(open('archesHash.py', 'r').read())
+    open('hashed.txt', 'w').write(v.hash_it())
+    print(time()-tempo)
+    
+
     
 
 
