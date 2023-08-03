@@ -19,7 +19,7 @@ def to_alphadecimal(to_convert):
         result = alphadecimal[resto] + result
         to_convert = to_convert // base
 
-    return [result, time()-tempo] 
+    return result 
 
 def to_decimal(to_convert):
 
@@ -34,14 +34,67 @@ def to_decimal(to_convert):
         result += alphadecimal.index(to_convert[digit])*(base**digit)
         # corresponding value of the digit times (base^n-1 digit position) 
 
-    return [result, time()-tempo] 
+    return result 
 
-a = to_alphadecimal(64**256)[0]
-print(a)
-a = to_alphadecimal(int(a))[0]
-print(a)
+def re_hash(hashed):
+    open('h.txt', 'w').write(' ')
+    digits_string = ''
+    for item in hashed:
+        ascii_digit = str(ord(item))
+        # if len(ascii_digit) < 3:
+        #     ascii_digit = list(ascii_digit)
+        #     ascii_digit.insert(0, '0')
+        #     ascii_digit = str().join(ascii_digit)
+        digits_string += ascii_digit
+
+    if len(digits_string) < 4300:
+        return re_hash(to_alphadecimal(int(digits_string))) # if 1st digit is 0 it will be stripped out
+
+    else:
+        while True:
+            hashed = digits_string
+            digits_string = ''
+
+            for item in hashed:
+                ascii_digit = str(ord(item))
+                # if len(ascii_digit) < 3:
+                #     ascii_digit = list(ascii_digit)
+                #     ascii_digit.insert(0, '0')
+                #     ascii_digit = str().join(ascii_digit)
+                digits_string += ascii_digit
+
+            new_splitted_digits = []
 
 
-#print(f'{a}\n{b}')
+            for index in range(0, len(digits_string), 18):
+                try:
+                    new_splitted_digits.append(
+                        to_alphadecimal( 
+                            int( digits_string[ index : index + 18 ])
+                        )
+                    )
+                except IndexError:
+                    new_splitted_digits.append(
+                        to_alphadecimal(
+                            int( digits_string[ index :])
+                        )
+                    )
+
+            digits_string = str().join(new_splitted_digits)
+
+            if len(digits_string) <= 256:
+                return digits_string
+            else:
+                file = open('h.txt', 'r').read()
+                file += f'\n\n {digits_string}'
+                open('h.txt', 'w').write(file)
+
+            
+        
 
 
+
+a = re_hash(to_alphadecimal(64**256))
+
+
+#print(f'{a} \n\n {re_hash(a)}')
