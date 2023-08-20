@@ -130,17 +130,21 @@ class ArchesCrypto():
         # for each char inside decoding that is a index letter, appends the char index to a list
         for char in range(len(decoding)):
             if decoding[char] in self.Qindex_letters:
-                char_indexes.append(char)
-        # at the end, certifies that the indexes are on crescent order sorting the list
-        char_indexes.sort()
+                char_indexes.append(char) # appends only the index of the index letter to the list
 
+        # at the end, certifies that the indexes are on crescent order sorting the list
+        char_indexes.sort() # in the end it doesnt do anything kkkkkkkkkkkkkkkkkkkkkkkkkk ill leave it there just cuz its fun
+
+
+        # for each index in the list, do
         for i in range(len(char_indexes)):
             
-            try:
+            try: # append the letters between each section of the indexes to disjoin each whole char
                 disjoined_chars.append(decoding[char_indexes[i]:char_indexes[i+1]])
             except IndexError:
                 disjoined_chars.append(decoding[char_indexes[i]:])
 
+        ### just a management to ignore non encoded chars in the input shit
         non_encoded_chars = []
         for item in range(len(disjoined_chars)):
 
@@ -153,17 +157,17 @@ class ArchesCrypto():
                     disjoined_chars[item] = disjoined_chars[item].replace(char, '')
 
             non_encoded_chars.append([]) if non_encoded_chars[-1] != [] else 0 
-        #print(non_encoded_chars)
-
+       
         for item in range(len(non_encoded_chars)):
             if non_encoded_chars[item] != []:
                 disjoined_chars.insert(item+1, str().join(non_encoded_chars[item]))
+        ###
 
         decoding = disjoined_chars
         #print(decoding)
         for item in decoding:
             if item[0] in self.Qindex_letters:
-                translated_letter = self.index_match_dict.get(item[0])[len(item)-2]
+                translated_letter = self.index_match_dict.get(item[0])[len(item)-2] # matching chars with the dict at __init__
                 self.decoded.append(translated_letter)
             else:
                 self.decoded.append(item)
@@ -171,29 +175,7 @@ class ArchesCrypto():
         self.decoded = str().join(self.decoded)        
         return self.decoded
 
-    def hash_it(self, to_hash = None):
 
-        number_cluster = []
-        sliced_cluster = []
-
-        to_hash = self.encoded if to_hash is None else 0        
-
-        first_number_cluster = list(str().join([str(ord(letter)) for letter in to_hash]))
-        number_cluster = first_number_cluster
-        pintched_cluster = []
-
-        while len(number_cluster) > 460:
-            pintched_cluster = [number_cluster[i] for i in range(0, len(number_cluster), 2)]
-            number_cluster = pintched_cluster
-
-        while len(number_cluster) != 459:
-            for i in range(0, 459 - len(number_cluster), 7):
-                number_cluster.append(first_number_cluster[i])
-
-        self.hash = int(str().join(number_cluster))
-        self.hash = self.to_alphadecimal(self.hash)
-
-        return self.hash
 
     def to_alphadecimal(self, to_convert):
 
@@ -217,10 +199,13 @@ class ArchesCrypto():
 #
 if __name__== "__main__":
 
-    # average 82ms to encode then hash itself
+    # 
+    # average 82ms to encode  itself (on i3-2330M)
     file = open('archesHash.py', 'r').read()
-    v = ArchesCrypto(file)
-    open('autohash', 'w').write(v.hash_it())
+    itself = ArchesCrypto().encode(file)
+    
+    open('itself_encoded', 'w').write(itself)
+    open('itself.py', 'w').write(ArchesCrypto().decode(itself))
     
 
     
