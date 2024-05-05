@@ -1,10 +1,8 @@
 from random import choice
-from time import time
-from decimal import Decimal as long
 
 
 
-class ArchesCrypto():
+class Arches():
 
     def __init__(self, to_encode = None):
 
@@ -176,37 +174,20 @@ class ArchesCrypto():
         return self.decoded
 
 
-
-    def to_alphadecimal(self, to_convert):
-
-        alphadecimal = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-        base = len(alphadecimal) ## 62
-        result = ''
-
-        # because it's needed to treat zero before the loop
-        resto = to_convert % base
-        result = alphadecimal[resto] + result
-        to_convert = to_convert // base
-
-        while to_convert > 0:
-            resto = to_convert % base
-            result = alphadecimal[resto] + result
-            to_convert = to_convert // base
-
-        return result
+    
+    def __str__(self):
+        if self.encoded is not None:
+            return self.encoded
+        else:
+            raise ValueError('no data inside object')
 #    
 #
 #
 if __name__== "__main__":
 
-    # 
-    # average 82ms to encode  itself (on i3-2330M)
-    file = open('archesHash.py', 'r').read()
-    itself = ArchesCrypto().encode(file)
-    
-    open('itself_encoded', 'w').write(itself)
-    open('itself.py', 'w').write(ArchesCrypto().decode(itself))
-    
+    a = Arches('oie')
+    print(a)
+    print(a.decode())
 
     
 
