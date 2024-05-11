@@ -2,9 +2,23 @@
 body{
     background-image: linear-gradient(to right, #12151b, #352a2a,#3d4d4f);
 }
-#boxes, #buttons{/*rgb(106, 108, 88);*/
+#boxes{/*rgb(106, 108, 88);*/
     text-align: center
 }
+.column{
+    text-align: center;
+    width: 475px;
+    height: 350px;
+    display: inline-block;
+}
+#c1{
+    margin-left: 15px;
+    margin-right: 40px;
+}
+form{
+    display: inline-block;
+} 
+
 #title{
     margin-left: 18px;
     text-align: left;
@@ -30,6 +44,7 @@ textarea:focus{
     outline: none;
 }
 .start-button{
+    
     margin-top: 15px;
     width: 488px;
     height: 70px;
@@ -44,16 +59,9 @@ textarea:focus{
     font-weight: bold;
     font-style: italic;
 }
-#input{
-    margin-right: 37px;
-}
-#output{
-    margin-right: 0px;
-}
+
 #encode{
     transition: background-color 0.4s, color 0.4s, border-color 0.4s; 
-    margin-left: -6px;
-    margin-right: 36px;
     border-color: #21844a;
     color: #21844a;
 }
@@ -96,7 +104,7 @@ textarea:focus{
     height: 35px;
     margin-top: 2.3%;
     margin-left: 46.7%;
-    background-color: #F23F42;
+    background-color: #ee2f32;
     border-style: hidden;
 
     box-shadow:  2px 2px 4px rgb(0,0,0, 0.3);
@@ -105,17 +113,17 @@ textarea:focus{
     font-size: 22px;
     letter-spacing: 5px;
     font-weight: 900;
-    color: #344244;
+    color: #2c3738;
     border-radius: 25px;
 }
 #info:hover{
-    background-color: #F23F42;
-    color: rgb(67, 26, 26);
+    background-color: #e31519;
+    color: rgb(38, 16, 16);
     transition: background-color 0.4s, color 0.4s, border-color 0.4s; 
 }
 #info:active{
-    background-color: #cd272a;
-    border-color: #cd272a;
+    background-color: #b52629;
+    border-color: #b52629;
     color: #3d4d4f;
     
     transition: background-color 0s, color 0s, border-color 0s; 
