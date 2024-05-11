@@ -7,6 +7,21 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Teko">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Heebo">
     <title>Arches Cryptography</title>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+        $(function() {
+          $('#encode').on('click', function(e) {
+            $.getJSON('/encode', { }, function(data) { });
+          });
+        });
+
+        $(function() {
+          $('#decode').on('click', function(e) {
+            $.getJSON('/decode', { }, function(data) { });
+          });
+        });
+    </script>
 </head>
 
 <body>
@@ -14,14 +29,22 @@
         <h1 id="title">Arches Cryptography Algorithm</h1>
         <button id="info">about</button>
     </row>
-    <div id="boxes">
-        <textarea id="input"></textarea>
-        <textarea id="output"></textarea>
+
+    <div class="column" id="c1">
+        <form  class="encode" action="/encode" method="post">
+            <textarea id="input" name="input"></textarea>
+            <button class="start-button" id="encode" type="submit">ENCODE</button>
+        </form>
+
     </div>
-    <div id="buttons">
-        <button class="start-button" id="encode">ENCODE</button>
-        <button class="start-button" id="decode">DECODE</button>
+    <div class="column" id="c2">
+        <form class="decode" action="/decode" method="get">
+            <textarea id="output" name="output"></textarea>
+            <button class="start-button" id="decode" type="button">DECODE</button>
+        </form>
     </div>
+
+
 </body>
 
 </html>
