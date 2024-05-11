@@ -12,6 +12,7 @@ const createWindow = () => {
   const win = new BrowserWindow({
     width: 1070,
     height: 500,
+    resizable: false,
     webPreferences: {
       nodeIntegration: true,
     },
@@ -50,6 +51,8 @@ app.whenReady().then(() => {
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
+    const { exec } = require('child_process')
+    exec('taskkill /f /im Python.exe')
     app.quit();
   }
 });
