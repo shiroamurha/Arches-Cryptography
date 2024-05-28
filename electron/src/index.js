@@ -13,6 +13,7 @@ const createWindow = () => {
     width: 1070,
     height: 500,
     resizable: false,
+    toolbar: false,
     webPreferences: {
       nodeIntegration: true,
     },
@@ -27,7 +28,6 @@ const createWindow = () => {
   });
 
   win.setMenu(null);
-  win.loadFile('../templates/index.html');
   win.loadURL("http://localhost:5000/")
 };
 
